@@ -1,7 +1,3 @@
-# Pluralsight's Unit Testing in Angular Course
-This course is up to date.
+# Prática do Curso de Teste Unitário em Angular do Pluralsight 
+Curso de Testes Unitários em Angular utilizando Jasmine e Karma.
 
-To get started, clone the repo or download it
-
-npm install
-npm test
