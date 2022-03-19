@@ -1,6 +1,7 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, Input, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { Hero } from 'src/app/hero';
 import { HeroService } from 'src/app/hero.service';
 import { HeroesComponent } from '../app/heroes/heroes.component';
 
@@ -10,6 +11,15 @@ describe('Heroes Component (shallow tests)', () => {
     let HEROES;
     let mockHeroService;
     let fixture: any;
+
+    @Component({
+        selector: 'app-hero',
+        template: '<div></div>',
+      })
+    class FakeHeroComponent {
+        @Input() hero: Hero;
+        //@Output() delete = new EventEmitter();
+    }
 
     beforeEach(() => {
         mockHeroService = jasmine.createSpyObj(['getHeroes', 'addHero', 'deleteHero'])
@@ -35,5 +45,21 @@ describe('Heroes Component (shallow tests)', () => {
         fixture.detectChanges();
 
         expect(fixture.componentInstance.heroes.length).toBe(3)
+    })
+
+    it('should have the correct hero', () => {
+        fixture.componentInstance.hero = {id:1, name: "SuperMan", strength: 3};
+
+        expect(fixture.componentInstance.hero.name).toEqual("SuperMan")
+    })
+
+    it('should have the correct hero', () => {
+        fixture.componentInstance.hero = {id:1, name: "SuperMan", strength: 3};
+        fixture.detectChanges();
+
+        // let deA = fixture.debugElement.query(By.css('a'));
+        // expect(deA.nativeElement.textContent).toContain("SuperMan");
+
+        expect(fixture.nativeElement.querySelector('a').textContent).toContain("SuperMan");
     })
 })
